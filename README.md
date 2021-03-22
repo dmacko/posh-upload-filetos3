@@ -2,15 +2,17 @@
 Reliable, portable Powershell module to upload a file to Amazon S3. 
 This is basically a wrapper around the .NET AWS SDK, with some extra logic around multipart uploads and error retries
 
+# Installation
+Download this repository to your computer
 
 # Usage
 
 ```powershell
 # optional - compress the file prior before uploading it. 7zip is used here because Compress-Archive runs out of memory for big files
-& "$scriptPath\lib\7za.exe" a -tzip "c:\file_to_upload.zip" c:\file_to_upload.bak
+& ".\lib\7za.exe" a -tzip "c:\file_to_upload.zip" c:\my_very_large_file.bak
 
 Import-Module ".\Upload-FileToS3.psm1" -DisableNameChecking
-Upload-FileToS3 -Path "c:\file_to_upload.zip" -S3Bucket my_s3_bucket -ApiKey AMAZON_API_KEY -ApiSecret $config.S3Config.AccessKey -S3Key $s3Key
+Upload-FileToS3 -Path "c:\file_to_upload.zip" -S3Bucket YOUR_S3_BUCKET_NAME -S3Key "some_prefix/my_uploaded_file.zip" -ApiKey YOUR_AWS_ACCESS_KEY_ID -ApiSecret YOUR_AWS_SECRET_ACCESS_KEY 
 ```
 
 # Known issues
